@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\AuthorizationRequest;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthorizationsController extends Controller
 {
@@ -20,7 +17,7 @@ class AuthorizationsController extends Controller
         $credentials['password'] = $request->password;
 
         if (!$token = auth('api')->attempt($credentials)) {
-            throw new AuthenticationException('用户名或密码错误');
+            $this->errorResponse(401, '用户名或密码错误');
         }
 
         return $this->respondWithToken($token)->setStatusCode(201);
