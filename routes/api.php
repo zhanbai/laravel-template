@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\SmsCodesController;
+use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 // });
 // 短信验证码
 Route::post('smsCodes', [SmsCodesController::class, 'store']);
+// 用户注册
+Route::post('users', [UsersController::class, 'store']);

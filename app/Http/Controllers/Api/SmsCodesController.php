@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\SmsCodeRequest;
 use Illuminate\Support\Facades\Cache;
 use Overtrue\EasySms\EasySms;
-use Illuminate\Support\Str;
 use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
 
 class SmsCodesController extends Controller
@@ -34,14 +33,12 @@ class SmsCodesController extends Controller
             }
         }
 
-        $key = Str::random(15);
-        $cacheKey = 'smsCode_' . $key;
+        $cacheKey = 'smsCode_' . $phone;
         $expiredAt = now()->addMinutes(5);
         // 缓存验证码 5 分钟过期
-        Cache::put($cacheKey, ['phone' => $phone, 'code' => $code], $expiredAt);
+        Cache::put($cacheKey, $code, $expiredAt);
 
         return success([
-            'key' => $key,
             'expired_at' => $expiredAt->toDateTimeString(),
         ]);
     }
