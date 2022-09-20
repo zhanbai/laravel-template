@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\UserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    public function store(UserRequest $request)
+    public function signup(UserRequest $request)
     {
         $cacheKey = 'smsCode_'.$request->phone;
         $code = Cache::get($cacheKey);
@@ -31,5 +33,18 @@ class UsersController extends Controller
         Cache::forget($cacheKey);
 
         return success($user);
+    }
+
+    public function login(UserRequest $request)
+    {
+        $user = User::where('phone', $request->phone)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return fail('手机号或密码错误');
+        }
+
+        $token = $user->createToken('api')->plainTextToken;
+
+        return success(['token' => $token]);
     }
 }

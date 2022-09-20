@@ -22,4 +22,6 @@ use Illuminate\Support\Facades\Route;
 // 短信验证码
 Route::post('smsCodes', [SmsCodesController::class, 'store']);
 // 用户注册
-Route::post('users', [UsersController::class, 'store']);
+Route::post('users/signup', [UsersController::class, 'signup']);
+// 用户登录
+Route::post('users/login', [UsersController::class, 'login']);

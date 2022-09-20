@@ -13,11 +13,21 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'phone' => 'required|phone:CN,mobile|unique:users',
-            'password' => 'required|alpha_dash|min:6',
-            'sms_code' => 'required|string',
-        ];
+        switch ($this->path()) {
+            case 'api/users/signup':
+                return [
+                    'phone' => 'required|phone:CN,mobile|unique:users',
+                    'password' => 'required|alpha_dash|min:6',
+                    'sms_code' => 'required|string',
+                ];
+                break;
+            case 'api/users/login':
+                return [
+                    'phone' => 'required|phone:CN,mobile',
+                    'password' => 'required|alpha_dash|min:6',
+                ];
+                break;
+        }
     }
 
     /**
