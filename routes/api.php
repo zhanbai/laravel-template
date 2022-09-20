@@ -25,3 +25,10 @@ Route::post('smsCodes', [SmsCodesController::class, 'store']);
 Route::post('users/signup', [UsersController::class, 'signup']);
 // 用户登录
 Route::post('users/login', [UsersController::class, 'login']);
+// 某个用户信息
+Route::get('users/{user}', [UsersController::class, 'show']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    // 当前用户信息
+    Route::get('user', [UsersController::class, 'me']);
+});

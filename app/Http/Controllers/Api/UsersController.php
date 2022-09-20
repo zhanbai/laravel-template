@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\UserRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -46,5 +47,15 @@ class UsersController extends Controller
         $token = $user->createToken('api')->plainTextToken;
 
         return success(['token' => $token]);
+    }
+
+    public function show(User $user)
+    {
+        return success($user);
+    }
+
+    public function me(Request $request)
+    {
+        return success($request->user());
     }
 }
