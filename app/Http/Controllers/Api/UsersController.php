@@ -57,4 +57,13 @@ class UsersController extends Controller
     {
         return success($request->user());
     }
+
+    public function update(UserRequest $request)
+    {
+        $user = $request->user();
+        $attributes = $request->only(['name', 'avatar']);
+        $user->update($attributes);
+        
+        return success($user);
+    }
 }

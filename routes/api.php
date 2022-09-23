@@ -29,6 +29,8 @@ Route::get('users/{user}', [UsersController::class, 'show']);
 Route::middleware('auth:sanctum')->group(function () {
     // 当前用户信息
     Route::get('user', [UsersController::class, 'me']);
+    // 更新当前用户信息
+    Route::post('user/update', [UsersController::class, 'update']);
     // 上传图片
     Route::post('images', [ImagesController::class, 'store']);
 });

@@ -27,6 +27,12 @@ class UserRequest extends FormRequest
                     'password' => 'required|alpha_dash|min:6',
                 ];
                 break;
+            case 'api/user/update':
+                return [
+                    'name' => 'between:2,25',
+                    'avatar' => 'url',
+                ];
+                break;
         }
     }
 
@@ -41,6 +47,8 @@ class UserRequest extends FormRequest
             'phone' => '手机号',
             'password' => '密码',
             'sms_code' => '验证码',
+            'name' => '姓名',
+            'avatar' => '头像',
         ];
     }
 }
