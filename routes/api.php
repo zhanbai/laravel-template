@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\SmsCodesController;
 use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
@@ -16,9 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 // 短信验证码
 Route::post('smsCodes', [SmsCodesController::class, 'store']);
 // 用户注册
@@ -31,4 +29,6 @@ Route::get('users/{user}', [UsersController::class, 'show']);
 Route::middleware('auth:sanctum')->group(function () {
     // 当前用户信息
     Route::get('user', [UsersController::class, 'me']);
+    // 上传图片
+    Route::post('images', [ImagesController::class, 'store']);
 });
