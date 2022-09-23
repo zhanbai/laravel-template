@@ -12,7 +12,7 @@ class ImagesController extends Controller
     {
         $user = $request->user();
 
-        $size = $request->type == 'avatar' ? 400 : 720;
+        $size = $request->type == 'avatar' ? 400 : 750;
         $result = $uploader->save($request->image, Str::plural($request->type), $user->id, $size);
 
         return success($result);
